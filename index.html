@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Checklist</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="checklist-container">
+        <h2>Task Checklist</h2>
+        <ul class="task-list" id="taskList">
+            <li>
+                <input type="checkbox" id="task1" onclick="toggleTask(this)">
+                <label for="task1">Task 1 </label>
+                <input type="text" value="Task" class="task-input">
+                <span class="delete-icon" onclick="deleteTask(this)">🗑️</span>
+            </li>
+            <li>
+                <input type="checkbox" id="task2" onclick="toggleTask(this)">
+                <label for="task2">Task 2 </label>
+                <input type="text" value="Task" class="task-input">
+                <span class="delete-icon" onclick="deleteTask(this)">🗑️</span>
+            </li>
+            <li>
+                <input type="checkbox" id="task3" onclick="toggleTask(this)">
+                <label for="task3">Task 3</label>
+                <input type="text" value="Task" class="task-input">
+                <span class="delete-icon" onclick="deleteTask(this)">🗑️</span>
+            </li>
+        </ul>
+        <button class="add-task-button" onclick="addTask()">Add Task</button>
+    </div>
+
+    <script>
+        function addTask() {
+            const taskList = document.getElementById('taskList');
+            const newTaskItem = document.createElement('li');
+            const taskId = 'task' + (taskList.children.length + 1);
+
+            newTaskItem.innerHTML = `
+                <input type="checkbox" id="${taskId}" onclick="toggleTask(this)">
+                <label for="${taskId}">New Task:</label>
+                <input type="text" placeholder="Enter task details..." class="task-input">
+                <span class="delete-icon" onclick="deleteTask(this)">🗑️</span>
+            `;
+            taskList.appendChild(newTaskItem);
+        }
+
+        function toggleTask(checkbox) {
+            const taskItem = checkbox.parentElement;
+            if (checkbox.checked) {
+                taskItem.querySelector('label').style.textDecoration = 'line-through';
+                taskItem.querySelector('label').style.color = '#777';
+            } else {
+                taskItem.querySelector('label').style.textDecoration = 'none';
+                taskItem.querySelector('label').style.color = '#ddd';
+            }
+        }
+
+        function deleteTask(deleteButton) {
+            const taskItem = deleteButton.parentElement;
+            taskItem.classList.add('fade-out');
+            setTimeout(() => taskItem.remove(), 300);
+        }
+    </script>
+</body>
+</html>
